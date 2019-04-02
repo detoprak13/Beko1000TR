@@ -6,4 +6,6 @@
     <string name="home_Fragment">home Fragment</string>
     <string name="developer_email">detoprak13@ku.edu.tr</string>
     <string name="settings_title"><b>Token Challenge</b></string>
+    <string name="accept_payment">Accept Payment</string>
+    <string name="payment_title"><b>Payment</b></string>
 </resources>

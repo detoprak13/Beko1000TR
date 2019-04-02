@@ -1,4 +1,4 @@
-package com.dtoprak.beko1000tr;
+package com.dtoprak.beko1000tr.util;
 
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -13,7 +13,6 @@ import javax.net.ssl.X509TrustManager;
 import okhttp3.OkHttpClient;
 
 public class UnsafeOkHttpClient {
-	private static final String BASE_URL = "https://sandbox-api.payosy.com";
 	public static final String CLIENT_ID = "90045867-c788-4a78-82c6-ded0aa6ae9b6";
 	public static final String SECRET_KEY = "lE3pA4tA3tM3yN5aN3sM0vU2mV0uS4rK6rC2nC3jV3gV1rR4bN";
 
