@@ -29,6 +29,6 @@ public class RetrofitClient {
 
 		@Headers({"x-ibm-client-id: " + CLIENT_ID, "x-ibm-client-secret: " + SECRET_KEY, "content-type", "application/json", "accept", "application/json"})
 		@POST("/get_qr_sale")
-		String getQrData(@Field("totalReceiptAmount") double amount);
+		Call<String> getQrData(@Field("totalReceiptAmount") double amount);
 	}
 }

@@ -11,6 +11,15 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import java.io.IOException;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -69,19 +78,17 @@ public class MainActivity extends AppCompatActivity {
 			}
 		});
 
-		OkHttpClient client = new OkHttpClient();
-
 		MediaType mediaType = MediaType.parse("application/json");
 		RequestBody body = RequestBody.create(mediaType, "{\"totalReceiptAmount\":100}");
 		Request request = new Request.Builder()
 				.url("https://sandbox-api.payosy.com/api/get_qr_sale")
 				.post(body)
-				.addHeader("x-ibm-client-id", RetrofitClient.CLIENT_ID)
-				.addHeader("x-ibm-client-secret", RetrofitClient.SECRET_KEY)
+				.addHeader("x-ibm-client-id", UnsafeOkHttpClient.CLIENT_ID)
+				.addHeader("x-ibm-client-secret", UnsafeOkHttpClient.SECRET_KEY)
 				.addHeader("content-type", "application/json")
 				.addHeader("accept", "application/json")
 				.build();
-		Call call = client.newCall(request);
+		Call call = UnsafeOkHttpClient.getUnsafeOkHttpClient().newCall(request);
 		call.enqueue(new Callback() {
 			@Override
 			public void onFailure(Call call, IOException e) {
