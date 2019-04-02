@@ -1,18 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ui.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:id="@+id/main_content_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_navigation_bar">
+
+    </FrameLayout>
+
+    <View
+        android:id="@+id/home_activity_bottom_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:layout_above="@+id/bottom_navigation_bar"
+        android:background="@drawable/background_shadow_bottom" />
+
+    <LinearLayout
+        android:id="@+id/bottom_navigation_bar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/background_text_field"
+        android:orientation="horizontal"
+        android:weightSum="2">
 
-</android.support.constraint.ConstraintLayout>
+        <ImageView
+            android:id="@+id/bottom_navigation_home"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/background_color"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:src="@drawable/home_icon" />
+
+        <ImageView
+            android:id="@+id/bottom_navigation_settings"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/background_color"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:src="@drawable/settings_icon" />
+    </LinearLayout>
+
+
+
+</RelativeLayout>
