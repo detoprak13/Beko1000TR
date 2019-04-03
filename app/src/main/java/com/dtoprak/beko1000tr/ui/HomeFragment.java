@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dtoprak.beko1000tr.models.PaymentResponse;
 import com.dtoprak.beko1000tr.models.QrData;
 import com.dtoprak.beko1000tr.models.QrResponse;
 import com.dtoprak.beko1000tr.R;
@@ -101,8 +102,8 @@ public class HomeFragment extends Fragment {
 					Gson gson = new Gson();
 					QrResponse qrResponse = gson.fromJson(responseStr, QrResponse.class);
 					qrData = Util.qrParser(qrResponse.QRdata);
-					qrData.setAsSting(responseStr);
-					Log.d("getQRSale", "SUCCESS: " + qrData.toString());
+					qrData.setAsSting(qrResponse.QRdata);
+					Log.d("getQRSale", "SUCCESS: " + qrResponse.QRdata);
 					if (isAdded()) {
 						getActivity().runOnUiThread(new Runnable() {
 							@Override
@@ -177,15 +178,25 @@ public class HomeFragment extends Fragment {
 				requestOngoing = false;
 				if (response.isSuccessful()) {
 					String responseStr = response.body().string();
+					Gson gson = new Gson();
+					PaymentResponse paymentResponse = gson.fromJson(responseStr, PaymentResponse.class);
 					if (isAdded()) {
 						getActivity().runOnUiThread(new Runnable() {
 							@Override
 							public void run() {
-								Toast.makeText(getContext(), "Payment Success", Toast.LENGTH_LONG).show();
+								if (paymentResponse.returnCode.equals("1000")) {
+									Log.d("payment", "SUCCESSFULL: "+ responseStr);
+									Toast.makeText(getContext(), "Payment Success", Toast.LENGTH_LONG).show();
+								} else if (paymentResponse.returnCode.equals("1003")) {
+									Log.d("payment", "FAIL: "+ responseStr);
+									Toast.makeText(getContext(), "Payment Failed: Processed before.", Toast.LENGTH_LONG).show();
+								} else {
+									Log.d("payment", "FAIL: "+ responseStr);
+									Toast.makeText(getContext(), "Payment Failed response code: " + paymentResponse.returnCode, Toast.LENGTH_LONG).show();
+								}
 							}
 						});
 					}
-					Log.d("DDDTTT", responseStr);
 				} else {
 					Log.d("payment", "NOT SUCCESSFULL");
 					if (isAdded()) {
